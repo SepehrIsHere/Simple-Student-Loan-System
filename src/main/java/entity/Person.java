@@ -6,21 +6,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = Person.TABLE_NAME)
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Person {
+public class Person extends BaseEntity implements Serializable {
     public static final String TABLE_NAME = "person";
     public static final String FIRST_NAME = "firstName";
     public static final String LAST_NAME = "lastName";
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public static final String NATIONAL_CODE = "national_code";
+    public static final String PHONE_NUMBER = "phone_number";
 
     @Column(name = FIRST_NAME)
     private String firstName;
@@ -28,12 +27,10 @@ public class Person {
     @Column(name = LAST_NAME)
     private String lastName;
 
-    @Column
-    private int age;
+    @Column(name = NATIONAL_CODE)
+    private String nationalCode;
 
-    public Person(String firstName, String lastName, int age) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-    }
+    @Column(name = PHONE_NUMBER)
+    private String phoneNumber;
+
 }
