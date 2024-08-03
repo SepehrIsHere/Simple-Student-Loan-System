@@ -1,54 +1,55 @@
 package repository.impl;
 
-import entity.User;
+import entity.Staff;
+import entity.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import repository.UserRepository;
+import repository.StudentRepository;
 import util.TransactionUtil;
 
 import java.util.List;
 
-public class UserRepositoryImpl<T extends User> implements UserRepository<User>, TransactionUtil {
+public class StudentRepositoryImpl <T extends Student> implements StudentRepository<Student>,TransactionUtil {
     private final EntityManager em;
 
-    public UserRepositoryImpl(EntityManager em) {
+    public StudentRepositoryImpl(EntityManager em) {
         this.em = em;
     }
 
     @Override
-    public void add(User user) {
+    public void save(Student entity) {
         beginTransaction();
-        em.persist(user);
+        em.persist(entity);
         commitTransaction();
     }
 
     @Override
-    public void update(User user) {
+    public void delete(Student entity) {
         beginTransaction();
-        em.merge(user);
+        em.remove(entity);
         commitTransaction();
     }
 
     @Override
-    public void delete(User user) {
+    public void update(Student entity) {
         beginTransaction();
-        em.remove(user);
+        em.merge(entity);
         commitTransaction();
     }
 
     @Override
-    public List<User> getAll() {
-        return em.createQuery("from User").getResultList();
+    public Student findById(Long id) {
+        return em.find(Student.class, id);
     }
 
     @Override
-    public User findById(Long id) {
-        return em.find(User.class, id);
+    public List<Student> findAll() {
+        return em.createQuery("from Student", Student.class).getResultList();
     }
 
     @Override
-    public User findByUsername(String username) {
-        return em.find(User.class, username);
+    public Student findByLastName(String lastName) {
+        return em.find(Student.class, lastName);
     }
 
     @Override

@@ -1,55 +1,50 @@
 package repository.impl;
 
-import entity.Person;
+import entity.Faculty;
+import entity.Staff;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import jakarta.transaction.Transaction;
-import repository.PersonRepository;
+import repository.StaffRepository;
 import util.TransactionUtil;
 
 import java.util.List;
 
-public class PersonRepositoryImpl <T extends Person> implements PersonRepository<Person>, TransactionUtil {
+public class StaffRepositoryImpl<T extends Staff> implements StaffRepository<Staff>,TransactionUtil {
     private final EntityManager em;
 
-    public PersonRepositoryImpl(EntityManager em) {
+    public StaffRepositoryImpl(EntityManager em) {
         this.em = em;
     }
 
     @Override
-    public void save(Person person) {
+    public void save(Staff entity) {
         beginTransaction();
-        em.persist(person);
+        em.persist(entity);
         commitTransaction();
     }
 
     @Override
-    public void delete(Person person) {
+    public void delete(Staff entity) {
         beginTransaction();
-        em.remove(em.merge(person));
+        em.remove(entity);
         commitTransaction();
     }
 
     @Override
-    public void update(Person person) {
+    public void update(Staff entity) {
         beginTransaction();
-        em.merge(person);
+        em.merge(entity);
         commitTransaction();
     }
 
     @Override
-    public Person findById(Long id) {
-        return em.find(Person.class,id);
+    public Staff findById(Long id) {
+        return em.find(Staff.class, id);
     }
 
     @Override
-    public List<Person> findAll() {
-        return em.createQuery("select p from Person p", Person.class).getResultList();
-    }
-
-    @Override
-    public Person findByLastName(String lastName) {
-        return em.find(Person.class,lastName);
+    public List<Staff> findAll() {
+        return em.createQuery("from Staff", Staff.class).getResultList();
     }
 
     @Override
