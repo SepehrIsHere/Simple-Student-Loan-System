@@ -20,16 +20,16 @@ public class Student extends Person {
     public static final String ID = "student_id";
     public static final String ENROLLED_LESSONS = "enrolled_courses";
 
-    @Column(name = ID)
-    private String studentId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long studentId;
 
     @Column(name = ENROLLED_LESSONS)
     @ManyToMany
-    private List<Course> enrolledLessons;
+    private List<Course> enrolledCourses;
 
-    public Student(String firstName, String lastName, String nationalCode, String phoneNumber, String studentId, List<Course> enrolledLessons) {
+    public Student(String firstName, String lastName, String nationalCode, String phoneNumber, List<Course> enrolledCourses) {
         super(firstName, lastName, nationalCode, phoneNumber);
-        this.studentId = studentId;
-        this.enrolledLessons = enrolledLessons;
+        this.enrolledCourses = enrolledCourses;
     }
 }

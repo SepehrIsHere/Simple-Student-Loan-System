@@ -1,13 +1,26 @@
 package entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = Grade.TABLE_NAME)
 public class Grade extends BaseEntity {
-    @JoinColumn(name = Student.TABLE_NAME)
+    public static final String TABLE_NAME = "grade";
+
+    @ManyToOne
+    @Column
     private Student student;
 
-    @JoinColumn(name = Course.TABLE_NAME)
+    @ManyToOne
+    @Column
     private Course course;
 
     @Column
