@@ -20,6 +20,9 @@ public class Course extends BaseEntity  {
     public static final String TABLE_NAME = "course";
     public static final String COURSE_NAME = "course_name";
 
+    @Column(name = COURSE_NAME)
+    private String courseName;
+
     @OneToOne
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;

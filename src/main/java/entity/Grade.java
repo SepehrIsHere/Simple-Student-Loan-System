@@ -16,11 +16,11 @@ public class Grade extends BaseEntity {
     public static final String TABLE_NAME = "grade";
 
     @ManyToOne
-    @Column
+    @JoinColumn(name = "student_id")
     private Student student;
 
     @ManyToOne
-    @Column
+    @JoinColumn(name = "course_id")
     private Course course;
 
     @Column

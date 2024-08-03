@@ -5,68 +5,31 @@ import entity.Grade;
 import entity.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 import repository.GradeRepository;
 import util.TransactionUtil;
 
 import java.util.List;
 
-public class GradeRepositoryImpl<T extends Grade> implements GradeRepository<Grade>, TransactionUtil {
+public class GradeRepositoryImpl extends BaseEntityRepositoryImpl<Grade> implements GradeRepository {
     private final EntityManager em;
 
     public GradeRepositoryImpl(EntityManager em) {
+        super(em);
         this.em = em;
     }
 
     @Override
-    public void add(Grade grade) {
-        beginTransaction();
-        em.persist(grade);
-        commitTransaction();
+    public List<Grade> findByStudent(Long studentId) {
+        TypedQuery<Grade> query = em.createQuery("SELECT g FROM Grade g WHERE g.student.id = :studentId", Grade.class);
+        query.setParameter("studentId", studentId);
+        return query.getResultList();
     }
 
     @Override
-    public void update(Grade grade) {
-        beginTransaction();
-        em.merge(grade);
-        commitTransaction();
-    }
-
-    @Override
-    public void delete(Grade grade) {
-        beginTransaction();
-        em.remove(grade);
-        commitTransaction();
-    }
-
-    @Override
-    public List<Grade> getAll() {
-        return em.createQuery("from Grade", Grade.class).getResultList();
-    }
-
-    @Override
-    public Grade getById(Long id) {
-        return em.find(Grade.class, id);
-    }
-
-    @Override
-    public List<Grade> findByStudent(Student student) {
-        return em.createQuery("from Grade where student = :student", Grade.class).setParameter("student", student).getResultList();
-    }
-
-    @Override
-    public List<Grade> findByCourse(Course course) {
-        return em.createQuery("from Grade where course = :course", Grade.class).setParameter("course", course).getResultList();
-    }
-
-    @Override
-    public void beginTransaction() {
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-    }
-
-    @Override
-    public void commitTransaction() {
-        EntityTransaction transaction = em.getTransaction();
-        transaction.commit();
+    public List<Grade> findByCourse(Long courseId) {
+        TypedQuery<Grade> query = em.createQuery("SELECT g FROM Grade g WHERE g.course.id = :courseId", Grade.class);
+        query.setParameter("courseId", courseId);
+        return query.getResultList();
     }
 }

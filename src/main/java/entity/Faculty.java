@@ -20,9 +20,6 @@ public class Faculty extends Person implements Serializable {
     public static final String COURSES_TAUGHT = "courses_taught";
     public static final String BASE_SALARY = "base_salary";
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long faculty_id;
 
     @Enumerated(EnumType.STRING)
     private FacultyType facultyType;

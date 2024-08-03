@@ -4,68 +4,34 @@ import entity.Course;
 import entity.Faculty;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import repository.CourseRepository;
 import util.TransactionUtil;
+import entity.Course;
 
 import java.util.List;
 
-public class CourseRepositoryImpl <T extends Course> implements CourseRepository<Course> , TransactionUtil {
+public class CourseRepositoryImpl<T extends Course> extends BaseEntityRepositoryImpl<Course> implements CourseRepository {
     private final EntityManager em;
 
     public CourseRepositoryImpl(EntityManager em) {
+        super(em);
         this.em = em;
     }
 
     @Override
-    public void save(Course course) {
-        beginTransaction();
-        em.persist(course);
-        commitTransaction();
+    public List<Course> findByCourseName(String courseName) {
+        TypedQuery<Course> query = em.createQuery("from Course c where c.courseName = :courseName", Course.class);
+        query.setParameter("courseName", courseName);
+        return query.getResultList();
     }
 
     @Override
-    public void delete(Course course) {
-        beginTransaction();
-        em.remove(course);
-        commitTransaction();
+    public List<Course> findByFacultyId(Long facultyId) {
+        TypedQuery<Course> query = em.createQuery("SELECT c FROM Course c JOIN c.faculty f WHERE f.id = :facultyId", Course.class);
+        query.setParameter("facultyId", facultyId);
+        return query.getResultList();
     }
 
-    @Override
-    public void update(Course course) {
-        beginTransaction();
-        em.merge(course);
-        commitTransaction();
-    }
-
-    @Override
-    public List<Course> findAll() {
-        return em.createQuery("from Course", Course.class).getResultList();
-    }
-
-    @Override
-    public Course findById(Long id) {
-        return em.find(Course.class, id);
-    }
-
-    @Override
-    public Course findByCourseName(String courseName) {
-        return em.find(Course.class, courseName);
-    }
-
-    @Override
-    public Course findByFacultyId(Faculty faculty) {
-       return em.find(Course.class, faculty.getFaculty_id());
-    }
-
-    @Override
-    public void beginTransaction() {
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-    }
-
-    @Override
-    public void commitTransaction() {
-        EntityTransaction transaction = em.getTransaction();
-        transaction.commit();
-    }
 }

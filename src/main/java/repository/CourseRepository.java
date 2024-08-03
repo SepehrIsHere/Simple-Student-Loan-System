@@ -5,18 +5,8 @@ import entity.Faculty;
 
 import java.util.List;
 
-public interface CourseRepository<T extends Course> {
-    void save(T course);
+public interface CourseRepository extends BaseEntityRepository<Course> {
+    List<Course> findByCourseName(String courseName);
 
-    void delete(T course);
-
-    void update(T course);
-
-    List<T> findAll();
-
-    T findById(Long id);
-
-    T findByCourseName(String courseName);
-
-    T findByFacultyId(Faculty faculty);
+    List<Course> findByFacultyId(Long facultyId);
 }

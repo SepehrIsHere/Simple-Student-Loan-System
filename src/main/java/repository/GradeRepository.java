@@ -6,18 +6,9 @@ import entity.Student;
 
 import java.util.List;
 
-public interface GradeRepository<T extends Grade> {
-    void add(T grade);
+public interface GradeRepository extends BaseEntityRepository<Grade>{
 
-    void update(T grade);
+    List<Grade> findByStudent(Long studentId);
 
-    void delete(T grade);
-
-    List<T> getAll();
-
-    T getById(Long id);
-
-    List<T> findByStudent(Student student);
-
-    List<T> findByCourse(Course course);
+    List<Grade> findByCourse(Long courseId);
 }

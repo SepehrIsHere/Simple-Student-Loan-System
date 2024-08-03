@@ -20,9 +20,6 @@ public class Student extends Person {
     public static final String ID = "student_id";
     public static final String ENROLLED_LESSONS = "enrolled_courses";
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long studentId;
 
     @Column(name = ENROLLED_LESSONS)
     @ManyToMany

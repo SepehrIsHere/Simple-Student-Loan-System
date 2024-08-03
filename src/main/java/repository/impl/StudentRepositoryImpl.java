@@ -1,66 +1,23 @@
 package repository.impl;
 
-import entity.Staff;
 import entity.Student;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 import repository.StudentRepository;
-import util.TransactionUtil;
 
-import java.util.List;
-
-public class StudentRepositoryImpl <T extends Student> implements StudentRepository<Student>,TransactionUtil {
+public class StudentRepositoryImpl extends BaseEntityRepositoryImpl<Student> implements StudentRepository {
     private final EntityManager em;
 
     public StudentRepositoryImpl(EntityManager em) {
+        super(em);
         this.em = em;
     }
 
     @Override
-    public void save(Student entity) {
-        beginTransaction();
-        em.persist(entity);
-        commitTransaction();
-    }
-
-    @Override
-    public void delete(Student entity) {
-        beginTransaction();
-        em.remove(entity);
-        commitTransaction();
-    }
-
-    @Override
-    public void update(Student entity) {
-        beginTransaction();
-        em.merge(entity);
-        commitTransaction();
-    }
-
-    @Override
-    public Student findById(Long id) {
-        return em.find(Student.class, id);
-    }
-
-    @Override
-    public List<Student> findAll() {
-        return em.createQuery("from Student", Student.class).getResultList();
-    }
-
-    @Override
     public Student findByLastName(String lastName) {
-        return em.find(Student.class, lastName);
+        TypedQuery<Student> query = em.createQuery("SELECT s FROM Student s WHERE s.lastName = :lastName", Student.class);
+        query.setParameter("lastName", lastName);
+        return query.getSingleResult();
     }
 
-    @Override
-    public void beginTransaction() {
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-    }
-
-    @Override
-    public void commitTransaction() {
-        EntityTransaction transaction = em.getTransaction();
-        transaction.commit();
-    }
 }
