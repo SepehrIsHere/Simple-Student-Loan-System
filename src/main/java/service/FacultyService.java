@@ -4,16 +4,15 @@ import entity.Faculty;
 
 import java.util.List;
 
-public interface FacultyService <T extends Faculty> {
-    void save(T entity);
+public interface FacultyService <Faculty> {
+    void save(Faculty entity);
 
-    void delete(T entity);
+    void delete(Faculty entity);
 
-    void update(T entity);
+    void update(Faculty entity);
 
-    T findById(Long id);
+    Faculty findById(Class<Faculty> entity,Long id);
 
-    List<T> findAll();
+    List<Faculty> findAll(Class<Faculty> entity);
 
-    T findByLastName(String lastName);
 }

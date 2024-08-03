@@ -1,14 +1,9 @@
 package repository.impl;
 
 import entity.Course;
-import entity.Faculty;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import repository.CourseRepository;
-import util.TransactionUtil;
-import entity.Course;
 
 import java.util.List;
 
