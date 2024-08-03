@@ -5,14 +5,16 @@ import entity.Staff;
 import java.util.List;
 
 public interface StaffService <T extends Staff> {
-    void save(T entity);
+    void add(T entity);
 
     void delete(T entity);
 
+    void deleteById(Long id);
+
     void update(T entity);
 
-    T findById(Long id);
+    T findById(Class<Staff> entity ,Long id);
 
-    List<T> findAll();
+    List<T> findAll(Class<Staff> entity);
 
 }

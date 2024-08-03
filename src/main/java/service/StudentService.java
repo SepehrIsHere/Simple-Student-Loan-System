@@ -5,15 +5,17 @@ import entity.Student;
 import java.util.List;
 
 public interface StudentService<T extends Student> {
-    void save(T entity);
-
-    void delete(T entity);
+    void add(T entity);
 
     void update(T entity);
 
-    T findById(Long id);
+    void delete(T entity);
 
-    List<T> findAll();
+    void deleteById(Long id);
+
+    T findById(Class<Student> entity, Long id);
+
+    List<T> findAll(Class<Student> entity);
 
     T findByLastName(String lastName);
 }

@@ -6,58 +6,66 @@ import service.StaffService;
 
 import java.util.List;
 
-public class StaffServiceImpl<T extends Staff> implements StaffService<Staff> {
-    private final StaffRepository<Staff> staffRepository;
+public class StaffServiceImpl implements StaffService<Staff> {
+    private final StaffRepository staffRepository;
 
-    public StaffServiceImpl(StaffRepository<Staff> staffRepository) {
+    public StaffServiceImpl(StaffRepository staffRepository) {
         this.staffRepository = staffRepository;
     }
 
     @Override
-    public void save(Staff entity) {
-        try {
-            staffRepository.save(entity);
-        } catch (Exception e) {
-            System.out.println("Error while trying to save Staff" + e.getMessage());
+    public void add(Staff entity) {
+        try{
+         staffRepository.add(entity);
+        }catch(Exception e){
+            System.out.println("Expcetion while adding staff" + e.getMessage());
         }
     }
 
     @Override
     public void delete(Staff entity) {
-        try {
+        try{
             staffRepository.delete(entity);
-        } catch (Exception e) {
-            System.out.println("Error while trying to save Staff" + e.getMessage());
+        }catch(Exception e){
+            System.out.println("Expcetion while deleting staff" + e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        try{
+            staffRepository.deleteById(id);
+        }catch(Exception e){
+            System.out.println("Expcetion while deleting staff" + e.getMessage());
         }
     }
 
     @Override
     public void update(Staff entity) {
-        try {
-            staffRepository.update(entity);
-        } catch (Exception e) {
-            System.out.println("Error while trying to save Staff" + e.getMessage());
+        try{
+         staffRepository.update(entity);
+        }catch(Exception e){
+            System.out.println("Expcetion while updating staff" + e.getMessage());
         }
     }
 
     @Override
-    public Staff findById(Long id) {
-        try {
-            return staffRepository.findById(id);
-        } catch (Exception e) {
-            System.out.println("Error while trying to get Staff" + e.getMessage());
+    public Staff findById(Class<Staff> entity,Long id) {
+        try{
+            return staffRepository.findById(entity,id);
+        }catch(Exception e){
+            System.out.println("Expcetion while finding staff" + e.getMessage());
         }
         return null;
     }
 
     @Override
-    public List<Staff> findAll() {
-        try {
-            return staffRepository.findAll();
-        } catch (Exception e) {
-            System.out.println("Error while trying to get Staff" + e.getMessage());
-        }
-        return null;
+    public List<Staff> findAll(Class<Staff> entity) {
+       try{
+           return staffRepository.findAll(entity);
+       }catch(Exception e){
+           System.out.println("Expcetion while finding staff" + e.getMessage());
+       }
+       return null;
     }
-
 }
