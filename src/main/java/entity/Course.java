@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.Serializable;
 import java.util.List;
 
 
@@ -20,6 +19,9 @@ public class Course extends BaseEntity  {
     public static final String TABLE_NAME = "course";
     public static final String COURSE_NAME = "course_name";
 
+    @Column
+    private Integer courseId;
+
     @Column(name = COURSE_NAME)
     private String courseName;
 
@@ -27,12 +29,15 @@ public class Course extends BaseEntity  {
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
 
+    @JoinColumn(name = "lesson_id")
     @OneToOne
     private Lesson lesson;
 
     @Column
     private int capacity;
 
+    @JoinColumn(name = "student_id")
     @OneToMany(mappedBy = TABLE_NAME)
-    private List<Grade> grades;
+    private List<Student> students;
+
 }

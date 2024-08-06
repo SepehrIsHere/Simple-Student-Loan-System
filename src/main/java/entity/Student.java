@@ -1,10 +1,8 @@
 package entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,20 +11,25 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Entity
 @Table(name = Student.TABLE_NAME)
 public class Student extends Person {
     public static final String TABLE_NAME = "student";
     public static final String ID = "student_id";
-    public static final String ENROLLED_LESSONS = "enrolled_courses";
+    public static final String SELECTED_UNITS = "selected_units_id";
+    public static final String ALLOWED_UNIT_COUNT = "allowed_unit_count";
 
+    @Column
+    @ColumnDefault("0")
+    private Double gpa;
 
-    @Column(name = ENROLLED_LESSONS)
+    @Column(name = ALLOWED_UNIT_COUNT)
+    @ColumnDefault("20")
+    private Integer allowedUnitCount;
+
+    @Column(name = SELECTED_UNITS)
     @ManyToMany
-    private List<Course> enrolledCourses;
+    private List<SelectUnit> selectedUnits;
 
-    public Student(String firstName, String lastName, String nationalCode, String phoneNumber, List<Course> enrolledCourses) {
-        super(firstName, lastName, nationalCode, phoneNumber);
-        this.enrolledCourses = enrolledCourses;
-    }
 }

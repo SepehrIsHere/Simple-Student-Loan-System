@@ -16,7 +16,7 @@ import java.util.List;
 public class Faculty extends Person implements Serializable {
     public static final String TABLE_NAME = "faculty";
     public static final String FACULTY_ID = "faculty_id";
-    public static final String ID  = "faculty_id";
+    public static final String ID = "faculty_id";
     public static final String COURSES_TAUGHT = "courses_taught";
     public static final String BASE_SALARY = "base_salary";
 
@@ -30,4 +30,15 @@ public class Faculty extends Person implements Serializable {
 
     @Column(name = BASE_SALARY)
     private double baseSalary;
+
+    public Faculty(String username, String password) {
+        super(username, password);
+    }
+
+    public Faculty(String firstName, String lastName, String nationalCode, String phoneNumber, String username, String password, FacultyType facultyType, Double baseSalary) {
+        super(firstName, lastName, nationalCode, phoneNumber, username, password);
+        this.facultyType = facultyType;
+        this.baseSalary = baseSalary;
+
+    }
 }

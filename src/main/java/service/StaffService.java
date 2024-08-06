@@ -2,9 +2,11 @@ package service;
 
 import entity.Staff;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Scanner;
 
-public interface StaffService <T extends Staff> {
+public interface StaffService<T extends Staff> {
     void add(T entity);
 
     void delete(T entity);
@@ -13,8 +15,19 @@ public interface StaffService <T extends Staff> {
 
     void update(T entity);
 
-    T findById(Class<Staff> entity ,Long id);
+    T findById(Long id);
 
-    List<T> findAll(Class<Staff> entity);
+    List<T> findAll();
 
+    void manageStudents(Scanner input) throws SQLException;
+
+    void manageFaculty(Scanner input) throws SQLException;
+
+    void manageStaff(Scanner input) throws SQLException;
+
+    void manageCourses(Scanner input) throws SQLException;
+
+    String viewPayroll(T staff);
+
+    Staff login(Staff staff);
 }

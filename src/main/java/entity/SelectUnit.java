@@ -11,8 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = Grade.TABLE_NAME)
-public class Grade extends BaseEntity {
+@Table(name = SelectUnit.TABLE_NAME)
+public class SelectUnit extends BaseEntity {
     public static final String TABLE_NAME = "grade";
 
     @ManyToOne

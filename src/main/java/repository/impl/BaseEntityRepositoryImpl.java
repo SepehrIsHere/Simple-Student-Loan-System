@@ -46,13 +46,4 @@ public class BaseEntityRepositoryImpl<T extends BaseEntity> implements BaseEntit
         transaction.commit();
     }
 
-    @Override
-    public List<T> findAll(Class<T> entity) {
-        return em.createQuery("from entity", entity).getResultList();
-    }
-
-    @Override
-    public T findById(Class<T> entity, Long id) {
-        return em.find(entity, id);
-    }
 }

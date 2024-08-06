@@ -1,8 +1,12 @@
 package service;
 
+import entity.Course;
+import entity.SelectUnit;
 import entity.Student;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Scanner;
 
 public interface StudentService<T extends Student> {
     void add(T entity);
@@ -13,9 +17,11 @@ public interface StudentService<T extends Student> {
 
     void deleteById(Long id);
 
-    T findById(Class<Student> entity, Long id);
+    T findById(Long id);
 
-    List<T> findAll(Class<Student> entity);
+    List<T> findAll();
 
     T findByLastName(String lastName);
+
+    List<SelectUnit> getSelectedUnits(Student student);
 }

@@ -12,8 +12,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@MappedSuperclass
 public class Person extends BaseEntity implements Serializable {
     public static final String TABLE_NAME = "person";
     public static final String FIRST_NAME = "firstName";
@@ -33,4 +32,22 @@ public class Person extends BaseEntity implements Serializable {
     @Column(name = PHONE_NUMBER)
     private String phoneNumber;
 
+    @Column
+    private String username;
+
+    @Column
+    private String password;
+
+    public Person(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+
+    public Person(String firstName, String lastName, String nationalCode, String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nationalCode = nationalCode;
+        this.phoneNumber = phoneNumber;
+    }
 }

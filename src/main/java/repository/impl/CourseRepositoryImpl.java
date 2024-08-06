@@ -16,6 +16,16 @@ public class CourseRepositoryImpl<T extends Course> extends BaseEntityRepository
     }
 
     @Override
+    public Course findById(Long id) {
+        return em.find(Course.class, id);
+    }
+
+    @Override
+    public List<Course> findAll() {
+        return em.createQuery("from Course", Course.class).getResultList();
+    }
+
+    @Override
     public List<Course> findByCourseName(String courseName) {
         TypedQuery<Course> query = em.createQuery("from Course c where c.courseName = :courseName", Course.class);
         query.setParameter("courseName", courseName);
@@ -29,4 +39,10 @@ public class CourseRepositoryImpl<T extends Course> extends BaseEntityRepository
         return query.getResultList();
     }
 
+    @Override
+    public List<Course> findByCourseId(Integer courseId) {
+        TypedQuery<Course> query = em.createQuery("from Course c where c.courseId = :courseId", Course.class);
+        query.setParameter("courseId", courseId);
+        return query.getResultList();
+    }
 }

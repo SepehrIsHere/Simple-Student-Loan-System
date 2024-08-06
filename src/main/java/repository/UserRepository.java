@@ -1,19 +1,14 @@
 package repository;
 
-import entity.User;
+import entity.Faculty;
+import entity.Person;
+import entity.Staff;
+import entity.Student;
 
-import java.util.List;
+public interface UserRepository {
+    Student loginStudent(String username, String password);
 
-public interface UserRepository<T extends User> {
-    void add(T user);
+    Faculty loginFaculty(String username, String password);
 
-    void update(T user);
-
-    void delete(T user);
-
-    List<T> getAll();
-
-    T findById(Long id);
-
-    T findByUsername(String username);
+    Staff loginStaff(String username,String password);
 }

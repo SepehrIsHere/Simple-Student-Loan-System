@@ -11,8 +11,8 @@ public interface FacultyService <Faculty> {
 
     void update(Faculty entity);
 
-    Faculty findById(Class<Faculty> entity,Long id);
+    Faculty findById(Long id);
 
-    List<Faculty> findAll(Class<Faculty> entity);
+    List<Faculty> findAll();
 
 }

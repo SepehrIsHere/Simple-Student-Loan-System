@@ -41,9 +41,9 @@ public class FacultyServiceImpl implements FacultyService<Faculty> {
     }
 
     @Override
-    public Faculty findById(Class<Faculty> entity, Long id) {
+    public Faculty findById(Long id) {
         try{
-            facultyRepository.findById(entity, id);
+            facultyRepository.findById(id);
         }catch(Exception e){
             System.out.println("Exception while finding entity" + e.getMessage());
         }
@@ -51,9 +51,9 @@ public class FacultyServiceImpl implements FacultyService<Faculty> {
     }
 
     @Override
-    public List<Faculty> findAll(Class<Faculty> entity) {
+    public List<Faculty> findAll() {
         try{
-            facultyRepository.findAll(entity);
+            facultyRepository.findAll();
         }catch(Exception e){
             System.out.println("Exception while finding entities" + e.getMessage());
         }

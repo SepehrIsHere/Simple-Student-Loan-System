@@ -1,9 +1,13 @@
 package repository.impl;
 
+import entity.Course;
+import entity.SelectUnit;
 import entity.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import repository.StudentRepository;
+
+import java.util.List;
 
 public class StudentRepositoryImpl extends BaseEntityRepositoryImpl<Student> implements StudentRepository {
     private final EntityManager em;
@@ -20,4 +24,22 @@ public class StudentRepositoryImpl extends BaseEntityRepositoryImpl<Student> imp
         return query.getSingleResult();
     }
 
+    @Override
+    public Student findById(Long id) {
+        return em.find(Student.class, id);
+    }
+
+    @Override
+    public List<Student> findAll() {
+        return em.createQuery("from Student", Student.class).getResultList();
+    }
+
+
+    @Override
+    public List<SelectUnit> getSelectedUnits(Student student) {
+        TypedQuery<SelectUnit> query = em.createQuery(
+                "SELECT cg FROM SelectUnit cg WHERE cg.student = :student", SelectUnit.class);
+        query.setParameter("student", student);
+        return query.getResultList();
+    }
 }
