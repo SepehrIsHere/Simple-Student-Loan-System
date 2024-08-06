@@ -26,10 +26,11 @@ public class StudentMenu {
         boolean continueRunning = true;
         while (continueRunning) {
             System.out.println("""
-                    student menu!
+                    Student menu!
                     1.display student information
                     2.display all courses
                     3.select Unit
+                    4.Exit
                     """);
             int option = input.nextInt();
             input.nextLine();
@@ -37,6 +38,7 @@ public class StudentMenu {
                 case 1 -> displayStudentInformation(input);
                 case 2 -> displayEnrolledCourses(input);
                 case 3 -> selectUnits(input);
+                case 4 -> continueRunning = false;
                 default -> System.out.println("Wrong option");
             }
         }
@@ -58,15 +60,16 @@ public class StudentMenu {
         System.out.println("Enter student id : ");
         Long id = input.nextLong();
         Student student = studentService.findById(id);
-        List<SelectUnit> enrolledCourses = studentService.getSelectedUnits(student);
-        if (enrolledCourses.isEmpty()) {
+        List<SelectUnit> selectedUnits = selectUnitService.findByStudentId(student);
+        if (selectedUnits.isEmpty()) {
             System.out.println("Student has not enrolled any of courses");
         } else {
-            for (SelectUnit selectUnit : enrolledCourses) {
+            for (SelectUnit selectUnit : selectedUnits) {
                 System.out.println("Course name : " + selectUnit.getCourse());
                 System.out.println("Lesson : " + selectUnit.getCourse().getLesson().getTitle());
                 System.out.println("Unit count : " + selectUnit.getCourse().getLesson().getUnit());
                 System.out.println("Faculty info" + selectUnit.getCourse().getFaculty().getFirstName() + selectUnit.getCourse().getFaculty().getLastName());
+                System.out.println("Grade : "  + selectUnit.getGrade());
             }
         }
     }

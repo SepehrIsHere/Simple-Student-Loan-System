@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 @Getter
 @Setter
@@ -24,5 +25,6 @@ public class SelectUnit extends BaseEntity {
     private Course course;
 
     @Column
+    @ColumnDefault("0")
     private double grade;
 }
