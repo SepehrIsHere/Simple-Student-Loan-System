@@ -28,8 +28,9 @@ public class Student extends Person {
     @ColumnDefault("20")
     private Integer allowedUnitCount;
 
-    @Column(name = SELECTED_UNITS)
-    @ManyToMany
-    private List<SelectUnit> selectedUnits;
+    @ManyToMany(mappedBy = "students")
+    private List<Course> courses;
 
+    @OneToMany(mappedBy = "student")
+    private List<SelectUnit> selectedUnits;
 }

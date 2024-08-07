@@ -1,6 +1,7 @@
 package entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serializable;
@@ -17,9 +18,10 @@ public class Staff extends Person  {
     public static final String STAFF_ID = "staff_id";
 
     @Column
+    @NotBlank(message = "Salary cannot be blank!")
     private Double salary;
 
-    public Staff(String firstName,String lastName, String nationalCode,String phoneNumber,String username,String password,Double salary){
+    public Staff(String firstName,String lastName, Integer nationalCode,Integer phoneNumber,String username,String password,Double salary){
         super(firstName,lastName,nationalCode,phoneNumber,username,password);
         this.salary = salary;
     }

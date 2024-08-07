@@ -2,6 +2,8 @@ package entity;
 
 import enumeration.FacultyType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 import java.io.Serializable;
@@ -22,6 +24,7 @@ public class Faculty extends Person implements Serializable {
 
 
     @Enumerated(EnumType.STRING)
+    @NotBlank(message = "faculty must have a type!")
     private FacultyType facultyType;
 
     @Column(name = COURSES_TAUGHT)
@@ -29,13 +32,14 @@ public class Faculty extends Person implements Serializable {
     private List<Course> coursesTaught;
 
     @Column(name = BASE_SALARY)
+    @NotEmpty(message = "faculty must have a base salary")
     private double baseSalary;
 
     public Faculty(String username, String password) {
         super(username, password);
     }
 
-    public Faculty(String firstName, String lastName, String nationalCode, String phoneNumber, String username, String password, FacultyType facultyType, Double baseSalary) {
+    public Faculty(String firstName, String lastName, Integer nationalCode, Integer phoneNumber, String username, String password, FacultyType facultyType, Double baseSalary) {
         super(firstName, lastName, nationalCode, phoneNumber, username, password);
         this.facultyType = facultyType;
         this.baseSalary = baseSalary;

@@ -1,6 +1,8 @@
 package entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = Course.TABLE_NAME)
-public class Course extends BaseEntity  {
+public class Course extends BaseEntity {
     public static final String TABLE_NAME = "course";
     public static final String COURSE_NAME = "course_name";
 
@@ -23,21 +25,27 @@ public class Course extends BaseEntity  {
     private Integer courseId;
 
     @Column(name = COURSE_NAME)
+    @NotBlank(message = "course must have a name!")
     private String courseName;
 
     @OneToOne
     @JoinColumn(name = "faculty_id")
+    @NotNull(message = "course must have a faculty")
     private Faculty faculty;
 
     @JoinColumn(name = "lesson_id")
     @OneToOne
+    @NotNull(message = "course must have a lesson")
     private Lesson lesson;
 
-    @Column
-    private int capacity;
+    @OneToMany(mappedBy = "course")
+    private List<SelectUnit> selectUnits;
 
-    @JoinColumn(name = "student_id")
-    @OneToMany(mappedBy = TABLE_NAME)
+    @ManyToMany
+    @JoinTable(
+            name = "course_student",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
     private List<Student> students;
-
 }
