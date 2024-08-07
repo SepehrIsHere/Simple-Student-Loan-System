@@ -22,23 +22,32 @@ public class MainMenu {
     public void showMenu() {
         boolean exit = false;
         while (!exit) {
-            loginMenu.showMenu();
-            token = loginMenu.getToken();
-            if (token != null) {
-                boolean stayInMenu = true;
-                while (stayInMenu) {
-                    if (token instanceof Staff) {
-                        staffMenu.showStaffMenu();
-                    } else if (token instanceof Faculty) {
-                        facultyMenu.showFacultyMenu();
-                    } else if (token instanceof Student) {
-                        studentMenu.showStudentMenu();
+            try {
+                loginMenu.showMenu();
+                token = loginMenu.getToken();
+                if (token != null) {
+                    boolean stayInMenu = true;
+                    while (stayInMenu) {
+                        try {
+                            if (token instanceof Staff) {
+                                staffMenu.showStaffMenu();
+                            } else if (token instanceof Faculty) {
+                                facultyMenu.showStudentMenu();
+                            } else if (token instanceof Student) {
+                                studentMenu.showStudentMenu();
+                            }
+                        } catch (Exception e) {
+                            System.out.println("An error occurred in the submenu: " + e.getMessage());
+                            e.printStackTrace(); //  for debugging purposes
+                        }
+                        stayInMenu = false;
                     }
-                    // After showing the menu, set stayInMenu to false to return to login menu
-                    stayInMenu = false;
+                } else {
+                    exit = true;
                 }
-            } else {
-                exit = true;
+            } catch (Exception e) {
+                System.out.println("An error occurred: " + e.getMessage());
+                e.printStackTrace(); //  for debugging purposes
             }
         }
         System.out.println("Exiting application");

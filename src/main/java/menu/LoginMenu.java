@@ -22,70 +22,96 @@ public class LoginMenu {
         Scanner input = new Scanner(System.in);
         boolean continueRunning = true;
         while (continueRunning) {
-            System.out.println("""
-                    1.Staff Login
-                    2.Faculty Login
-                    3.Student Login
-                    4.Exit
-                    """);
-            int choice = input.nextInt();
-            input.nextLine();
-            switch (choice) {
-                case 1 -> continueRunning = !staffLogin(input);
-                case 2 -> continueRunning = !facultyLogin(input);
-                case 3 -> continueRunning = !studentLogin(input);
-                case 4 -> {
-                    token = null;
-                    continueRunning = false;
+            try {
+                System.out.println("""
+                        1. Staff Login
+                        2. Faculty Login
+                        3. Student Login
+                        4. Exit
+                        """);
+                int choice = input.nextInt();
+                input.nextLine();
+                switch (choice) {
+                    case 1 -> continueRunning = !staffLogin(input);
+                    case 2 -> continueRunning = !facultyLogin(input);
+                    case 3 -> continueRunning = !studentLogin(input);
+                    case 4 -> {
+                        token = null;
+                        continueRunning = false;
+                    }
+                    default -> System.out.println("Invalid choice");
                 }
-                default -> System.out.println("Invalid choice");
+            } catch (Exception e) {
+                System.out.println("An error occurred: " + e.getMessage());
+                e.printStackTrace(); // for debugging purposes
+                input.nextLine();
             }
         }
     }
 
     private boolean staffLogin(Scanner input) {
-        System.out.println("Enter username : ");
-        String username = input.nextLine();
-        System.out.println("Enter password : ");
-        String password = input.nextLine();
-        Staff staff = new Staff();
-        staff.setUsername(username);
-        staff.setPassword(password);
-        token = userService.loginStaff(staff);
-        if (token.getId() == null) {
-            System.out.println("Invalid username or password");
+        try {
+            System.out.println("Enter username: ");
+            String username = input.nextLine();
+            System.out.println("Enter password: ");
+            String password = input.nextLine();
+            Staff staff = new Staff();
+            staff.setUsername(username);
+            staff.setPassword(password);
+            token = userService.loginStaff(staff);
+            if (token == null || token.getId() == null) {
+                System.out.println("Invalid username or password");
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println("An error occurred during staff login: " + e.getMessage());
+            e.printStackTrace(); //  for debugging purposes
+            return false;
         }
-        return true;
     }
 
     private boolean facultyLogin(Scanner input) {
-        System.out.println("Enter username : ");
-        String username = input.nextLine();
-        System.out.println("Enter password : ");
-        String password = input.nextLine();
-        Faculty faculty = new Faculty();
-        faculty.setUsername(username);
-        faculty.setPassword(password);
-        token = userService.loginFaculty(faculty);
-        if (token.getId() == null) {
-            System.out.println("Invalid username or password");
+        try {
+            System.out.println("Enter username: ");
+            String username = input.nextLine();
+            System.out.println("Enter password: ");
+            String password = input.nextLine();
+            Faculty faculty = new Faculty();
+            faculty.setUsername(username);
+            faculty.setPassword(password);
+            token = userService.loginFaculty(faculty);
+            if (token == null || token.getId() == null) {
+                System.out.println("Invalid username or password");
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println("An error occurred during faculty login: " + e.getMessage());
+            e.printStackTrace(); //  for debugging purposes
+            return false;
         }
-        return true;
     }
 
     private boolean studentLogin(Scanner input) {
-        System.out.println("Enter username : ");
-        String username = input.nextLine();
-        System.out.println("Enter password : ");
-        String password = input.nextLine();
-        Student student = new Student();
-        student.setUsername(username);
-        student.setPassword(password);
-        token = userService.loginStudent(student);
-        if (token.getId() == null) {
-            System.out.println("Invalid username or password");
+        try {
+            System.out.println("Enter username: ");
+            String username = input.nextLine();
+            System.out.println("Enter password: ");
+            String password = input.nextLine();
+            Student student = new Student();
+            student.setUsername(username);
+            student.setPassword(password);
+            token = userService.loginStudent(student);
+            if (token == null || token.getId() == null) {
+                System.out.println("Invalid username or password");
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println("An error occurred during student login: " + e.getMessage());
+            e.printStackTrace(); // for debugging purposes
+            return false;
         }
-        return true;
     }
-
 }
