@@ -1,5 +1,6 @@
 package repository;
 
+import entity.Course;
 import entity.SelectUnit;
 import entity.Student;
 
@@ -14,4 +15,5 @@ public interface SelectUnitRepository extends BaseEntityRepository<SelectUnit> {
 
     List<SelectUnit> findByCourse(Long courseId);
 
+    SelectUnit findByCourseAndStudent(Long courseId, Long studentId);
 }

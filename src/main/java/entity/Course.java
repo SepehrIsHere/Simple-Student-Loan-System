@@ -38,6 +38,7 @@ public class Course extends BaseEntity {
     @NotNull(message = "course must have a lesson")
     private Lesson lesson;
 
+    //Useless
     @OneToMany(mappedBy = "course")
     private List<SelectUnit> selectUnits;
 

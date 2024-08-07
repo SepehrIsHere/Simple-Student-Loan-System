@@ -93,37 +93,44 @@ public class StudentMenu {
             Long studentId = input.nextLong();
             Student student = studentService.findById(studentId);
             List<SelectUnit> selectUnits = selectUnitService.findByStudentId(student);
-            int currentUnits = 0;
-            for (SelectUnit selectUnit : selectUnits) {
-                currentUnits += selectUnit.getCourse().getLesson().getUnit();
+            student.setSelectedUnits(selectUnits);
+            List<Course> attendedCourses = studentService.findStudentCourses(student.getId());
+            student.setCourses(attendedCourses);
+            if (selectUnits != null && !selectUnits.isEmpty()) {
+                int currentUnits = 0;
+                for (SelectUnit selectUnit : selectUnits) {
+                    currentUnits += selectUnit.getCourse().getLesson().getUnit();
+                }
+                int maxUnits = (student.getGpa() > 18) ? 24 : 20;
+
+                if (currentUnits >= maxUnits) {
+                    System.out.println("You have reached the maximum allowed units.");
+                    return;
+                }
+            } else {
+                System.out.println("Enter Course id : ");
+                Long courseId = input.nextLong();
+                Course course = courseService.findById(courseId);
+
+                SelectUnit selectUnit = new SelectUnit();
+                selectUnit.setCourse(course);
+                selectUnit.setStudent(student);
+
+                if (hasPassedCourse(student, selectUnit)) {
+                    System.out.println("You have already passed this course.");
+                    return;
+                }
+
+                if (hasSelectedCourse(student, selectUnit)) {
+                    System.out.println("You have already selected this course for this term.");
+                    return;
+                }
+                attendedCourses.add(course);
+                selectUnits.add(selectUnit);
+                studentService.update(student);
+                selectUnitService.add(selectUnit);
+                System.out.println("Selected Unit Successfully");
             }
-            int maxUnits = (student.getGpa() > 18) ? 24 : 20;
-
-            if (currentUnits >= maxUnits) {
-                System.out.println("You have reached the maximum allowed units.");
-                return;
-            }
-
-            System.out.println("Enter Course id : ");
-            Long courseId = input.nextLong();
-            Course course = courseService.findById(courseId);
-
-            SelectUnit selectUnit = new SelectUnit();
-            selectUnit.setCourse(course);
-            selectUnit.setStudent(student);
-
-            if (hasPassedCourse(student, selectUnit)) {
-                System.out.println("You have already passed this course.");
-                return;
-            }
-
-            if (hasSelectedCourse(student, selectUnit)) {
-                System.out.println("You have already selected this course for this term.");
-                return;
-            }
-
-            selectUnitService.add(selectUnit);
-            System.out.println("Selected Unit Successfully");
         } catch (Exception e) {
             System.out.println("Failed to select unit: " + e.getMessage());
         }

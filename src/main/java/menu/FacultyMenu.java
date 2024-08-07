@@ -83,13 +83,11 @@ public class FacultyMenu {
                 System.out.println("Enter student's last name : ");
                 String lastName = input.nextLine();
                 Student student = studentService.findByLastName(lastName);
+                SelectUnit selectUnit = selectUnitService.findByCourseAndStudent(course.getId(), student.getId());
                 System.out.println("Enter grade : ");
                 double grade = input.nextDouble();
-                SelectUnit selectUnit = new SelectUnit();
                 selectUnit.setGrade(grade);
-                selectUnit.setStudent(student);
-                selectUnit.setCourse(course);
-                selectUnitService.add(selectUnit);
+                selectUnitService.update(selectUnit);
                 System.out.println("Grade added successfully!");
             } else {
                 System.out.println("The student is not in course or Faculty does not teach the course");

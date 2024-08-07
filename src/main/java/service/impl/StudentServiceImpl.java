@@ -1,5 +1,6 @@
 package service.impl;
 
+import entity.Course;
 import entity.SelectUnit;
 import entity.Student;
 import repository.StudentRepository;
@@ -94,5 +95,13 @@ public class StudentServiceImpl implements StudentService<Student> {
         return null;
     }
 
-
+    @Override
+    public List<Course> findStudentCourses(Long studentId) {
+        try {
+            studentRepository.findStudentCourses(studentId);
+        } catch (Exception e) {
+            System.out.println("An error occurred while getting selected courses: " + e.getMessage());
+        }
+        return null;
+    }
 }

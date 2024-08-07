@@ -2,6 +2,7 @@ package repository;
 
 import entity.Course;
 import entity.Faculty;
+import entity.Student;
 
 import java.util.List;
 
@@ -15,4 +16,9 @@ public interface CourseRepository extends BaseEntityRepository<Course> {
     List<Course> findByCourseId(Integer courseId);
 
     List<Course> findByFacultyId(Long facultyId);
+
+    List<Student> findStudentsFromCourse(Long courseId);
+
+    List<Course> findStudentsEnrolledCourses(Long studentId);
+
 }

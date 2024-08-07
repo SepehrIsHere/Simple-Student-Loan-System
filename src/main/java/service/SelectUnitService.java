@@ -19,4 +19,5 @@ public interface SelectUnitService<T extends SelectUnit> {
 
     List<T> findByStudentId(Student student);
 
+    SelectUnit findByCourseAndStudent(Long courseId, Long studentId);
 }

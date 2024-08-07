@@ -1,5 +1,6 @@
 package repository.impl;
 
+import entity.Course;
 import entity.SelectUnit;
 import entity.Student;
 import jakarta.persistence.EntityManager;
@@ -41,5 +42,11 @@ public class SelectUnitRepositoryImpl extends BaseEntityRepositoryImpl<SelectUni
         return em.createQuery("from SelectUnit", SelectUnit.class).getResultList();
     }
 
-
+    @Override
+    public SelectUnit findByCourseAndStudent(Long courseId, Long studentId) {
+        TypedQuery<SelectUnit> query = em.createQuery("SELECT s from SelectUnit JOIN Course c JOIN Student  s where c.id = :courseId and s.id = :studentId", SelectUnit.class);
+        query.setParameter("courseId", courseId);
+        query.setParameter("studentId", studentId);
+        return query.getSingleResult();
+    }
 }

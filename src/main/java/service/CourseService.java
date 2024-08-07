@@ -1,6 +1,7 @@
 package service;
 
 import entity.Course;
+import entity.Student;
 
 import java.util.List;
 
@@ -18,4 +19,8 @@ public interface CourseService<Course> {
     List<Course> findByCourseName(String courseName);
 
     List<Course> findByFacultyId(Long facultyId);
+
+    List<Student> findStudentsFromCourse(Long courseId);
+
+    List<Course> findStudentsEnrolledCourses(Long studentId);
 }

@@ -1,6 +1,7 @@
 package repository.impl;
 
 import entity.Course;
+import entity.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import repository.CourseRepository;
@@ -43,6 +44,20 @@ public class CourseRepositoryImpl<T extends Course> extends BaseEntityRepository
     public List<Course> findByCourseId(Integer courseId) {
         TypedQuery<Course> query = em.createQuery("from Course c where c.courseId = :courseId", Course.class);
         query.setParameter("courseId", courseId);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Student> findStudentsFromCourse(Long courseId) {
+        TypedQuery<Student> query = em.createQuery("select Student s from Course  c where c.id = :courseId", Student.class);
+        query.setParameter("courseId", courseId);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Course> findStudentsEnrolledCourses(Long studentId) {
+        TypedQuery<Course> query = em.createQuery("SELECT c FROM Course c JOIN c.students s WHERE s.id = :studentId", Course.class);
+        query.setParameter("studentId", studentId);
         return query.getResultList();
     }
 }

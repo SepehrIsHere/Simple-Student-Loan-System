@@ -1,6 +1,7 @@
 package service.impl;
 
 import entity.Course;
+import entity.Student;
 import repository.CourseRepository;
 import service.CourseService;
 
@@ -76,6 +77,26 @@ public class CourseServiceImpl implements CourseService<Course> {
             return courseRepository.findByFacultyId(facultyId);
         } catch (Exception e) {
             System.out.println("Exception while finding course" + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public List<Student> findStudentsFromCourse(Long courseId) {
+        try {
+            return courseRepository.findStudentsFromCourse(courseId);
+        } catch (NullPointerException e) {
+            System.out.println("Course does not have any student" + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public List<Course> findStudentsEnrolledCourses(Long studentId) {
+        try {
+            return courseRepository.findStudentsEnrolledCourses(studentId);
+        } catch (NullPointerException e) {
+            System.out.println("Students is not enrolled in any course" + e.getMessage());
         }
         return null;
     }

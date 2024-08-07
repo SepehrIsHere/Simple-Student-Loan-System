@@ -15,4 +15,5 @@ public interface StudentRepository extends BaseEntityRepository<Student> {
     
     List<SelectUnit> getSelectedUnits(Student student);
 
+    List<Course> findStudentCourses(Long studentId);
 }

@@ -35,10 +35,6 @@ public class Faculty extends Person implements Serializable {
     @NotEmpty(message = "faculty must have a base salary")
     private double baseSalary;
 
-    public Faculty(String username, String password) {
-        super(username, password);
-    }
-
     public Faculty(String firstName, String lastName, Integer nationalCode, Integer phoneNumber, String username, String password, FacultyType facultyType, Double baseSalary) {
         super(firstName, lastName, nationalCode, phoneNumber, username, password);
         this.facultyType = facultyType;

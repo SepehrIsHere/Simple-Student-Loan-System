@@ -72,4 +72,13 @@ public class SelectUnitServiceImpl implements SelectUnitService<SelectUnit> {
         return null;
     }
 
+    @Override
+    public SelectUnit findByCourseAndStudent(Long courseId, Long studentId) {
+        try{
+            return selectUnitRepository.findByCourseAndStudent(courseId, studentId);
+        }catch (Exception e){
+            System.out.println("Exception while trying to find grade" + e.getMessage());
+        }
+        return null;
+    }
 }

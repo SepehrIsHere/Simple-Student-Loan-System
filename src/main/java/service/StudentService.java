@@ -24,4 +24,6 @@ public interface StudentService<T extends Student> {
     T findByLastName(String lastName);
 
     List<SelectUnit> getSelectedUnits(Student student);
+
+    List<Course> findStudentCourses(Long studentId);
 }
