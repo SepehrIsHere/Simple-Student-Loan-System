@@ -1,6 +1,9 @@
 package entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,14 +30,20 @@ public class Person extends BaseEntity implements Serializable {
     private String lastName;
 
     @Column(name = NATIONAL_CODE)
-    private String nationalCode;
+    @Min(value = 5, message = "cannot be less than 5")
+    @Max(value = 8, message = "cannot be bigger than 8")
+    private Integer nationalCode;
 
+    @Min(value = 5, message = "cannot be less than 5")
+    @Max(value = 8, message = "cannot be bigger than 8")
     @Column(name = PHONE_NUMBER)
-    private String phoneNumber;
+    private Integer phoneNumber;
 
+    @NotBlank(message = "username cannot be blank!")
     @Column
     private String username;
 
+    @NotBlank(message = "password cannot be blank!")
     @Column
     private String password;
 
@@ -44,7 +53,7 @@ public class Person extends BaseEntity implements Serializable {
     }
 
 
-    public Person(String firstName, String lastName, String nationalCode, String phoneNumber) {
+    public Person(String firstName, String lastName, Integer nationalCode, Integer phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.nationalCode = nationalCode;
