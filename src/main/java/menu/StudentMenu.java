@@ -7,6 +7,7 @@ import service.CourseService;
 import service.SelectUnitService;
 import service.StudentService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -89,14 +90,28 @@ public class StudentMenu {
 
     private void selectUnits(Scanner input) {
         try {
-            System.out.println("Enter student id : ");
+            System.out.println("Enter student id: ");
             Long studentId = input.nextLong();
             Student student = studentService.findById(studentId);
+
+            if (student == null) {
+                System.out.println("Student not found.");
+                return;
+            }
+
             List<SelectUnit> selectUnits = selectUnitService.findByStudentId(student);
+            if (selectUnits == null) {
+                selectUnits = new ArrayList<>();
+            }
             student.setSelectedUnits(selectUnits);
+
             List<Course> attendedCourses = studentService.findStudentCourses(student.getId());
+            if (attendedCourses == null) {
+                attendedCourses = new ArrayList<>();
+            }
             student.setCourses(attendedCourses);
-            if (selectUnits != null && !selectUnits.isEmpty()) {
+
+            if (!selectUnits.isEmpty()) {
                 int currentUnits = 0;
                 for (SelectUnit selectUnit : selectUnits) {
                     currentUnits += selectUnit.getCourse().getLesson().getUnit();
@@ -107,34 +122,43 @@ public class StudentMenu {
                     System.out.println("You have reached the maximum allowed units.");
                     return;
                 }
-            } else {
-                System.out.println("Enter Course id : ");
-                Long courseId = input.nextLong();
-                Course course = courseService.findById(courseId);
-
-                SelectUnit selectUnit = new SelectUnit();
-                selectUnit.setCourse(course);
-                selectUnit.setStudent(student);
-
-                if (hasPassedCourse(student, selectUnit)) {
-                    System.out.println("You have already passed this course.");
-                    return;
-                }
-
-                if (hasSelectedCourse(student, selectUnit)) {
-                    System.out.println("You have already selected this course for this term.");
-                    return;
-                }
-                attendedCourses.add(course);
-                selectUnits.add(selectUnit);
-                studentService.update(student);
-                selectUnitService.add(selectUnit);
-                System.out.println("Selected Unit Successfully");
             }
+
+            System.out.println("Enter Course id: ");
+            Long courseId = input.nextLong();
+            Course course = courseService.findById(courseId);
+
+            if (course == null) {
+                System.out.println("Course not found.");
+                return;
+            }
+
+            SelectUnit selectUnit = new SelectUnit();
+            selectUnit.setCourse(course);
+            selectUnit.setStudent(student);
+
+            if (hasPassedCourse(student, selectUnit)) {
+                System.out.println("You have already passed this course.");
+                return;
+            }
+
+            if (hasSelectedCourse(student, selectUnit)) {
+                System.out.println("You have already selected this course for this term.");
+                return;
+            }
+
+            attendedCourses.add(course);
+            selectUnits.add(selectUnit);
+            studentService.update(student);
+            selectUnitService.add(selectUnit);
+            System.out.println("Selected Unit Successfully");
+
         } catch (Exception e) {
             System.out.println("Failed to select unit: " + e.getMessage());
         }
     }
+
+
 
     private boolean hasSelectedCourse(Student student, SelectUnit selectUnit) {
         try {

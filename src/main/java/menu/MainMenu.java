@@ -25,6 +25,7 @@ public class MainMenu {
             try {
                 loginMenu.showMenu();
                 token = loginMenu.getToken();
+
                 if (token != null) {
                     boolean stayInMenu = true;
                     while (stayInMenu) {
@@ -36,18 +37,18 @@ public class MainMenu {
                             } else if (token instanceof Student) {
                                 studentMenu.showStudentMenu();
                             }
+                            stayInMenu = false;
                         } catch (Exception e) {
                             System.out.println("An error occurred in the submenu: " + e.getMessage());
-                            e.printStackTrace(); //  for debugging purposes
+                            e.printStackTrace();
                         }
-                        stayInMenu = false;
                     }
                 } else {
                     exit = true;
                 }
             } catch (Exception e) {
                 System.out.println("An error occurred: " + e.getMessage());
-                e.printStackTrace(); //  for debugging purposes
+                e.printStackTrace();
             }
         }
         System.out.println("Exiting application");

@@ -7,6 +7,7 @@ import entity.Student;
 import lombok.Getter;
 import service.UserService;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class LoginMenu {
@@ -39,11 +40,14 @@ public class LoginMenu {
                         token = null;
                         continueRunning = false;
                     }
-                    default -> System.out.println("Invalid choice");
+                    default -> System.out.println("Invalid choice. Please select a valid option.");
                 }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                input.nextLine();
             } catch (Exception e) {
                 System.out.println("An error occurred: " + e.getMessage());
-                e.printStackTrace(); // for debugging purposes
+                e.printStackTrace();
                 input.nextLine();
             }
         }
@@ -66,7 +70,7 @@ public class LoginMenu {
             return true;
         } catch (Exception e) {
             System.out.println("An error occurred during staff login: " + e.getMessage());
-            e.printStackTrace(); //  for debugging purposes
+            e.printStackTrace();
             return false;
         }
     }
@@ -88,7 +92,7 @@ public class LoginMenu {
             return true;
         } catch (Exception e) {
             System.out.println("An error occurred during faculty login: " + e.getMessage());
-            e.printStackTrace(); //  for debugging purposes
+            e.printStackTrace();
             return false;
         }
     }
@@ -110,7 +114,7 @@ public class LoginMenu {
             return true;
         } catch (Exception e) {
             System.out.println("An error occurred during student login: " + e.getMessage());
-            e.printStackTrace(); // for debugging purposes
+            e.printStackTrace();
             return false;
         }
     }
