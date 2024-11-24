@@ -1,11 +1,8 @@
 package repository.impl;
 
-import entity.Course;
 import entity.SelectUnit;
-import entity.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import org.apache.commons.lang3.reflect.Typed;
 import repository.SelectUnitRepository;
 
 import java.util.List;

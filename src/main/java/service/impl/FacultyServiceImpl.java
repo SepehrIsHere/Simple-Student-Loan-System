@@ -15,36 +15,36 @@ public class FacultyServiceImpl implements FacultyService<Faculty> {
 
     @Override
     public void save(Faculty entity) {
-        try{
+        try {
             facultyRepository.add(entity);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Exception while saving entity" + e.getMessage());
         }
     }
 
     @Override
     public void delete(Faculty entity) {
-        try{
+        try {
             facultyRepository.delete(entity);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Exception while deleting entity" + e.getMessage());
         }
     }
 
     @Override
     public void update(Faculty entity) {
-        try{
+        try {
             facultyRepository.update(entity);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Exception while updating entity" + e.getMessage());
         }
     }
 
-    @Override
+    @Override   
     public Faculty findById(Long id) {
-        try{
-            facultyRepository.findById(id);
-        }catch(Exception e){
+        try {
+            return facultyRepository.findById(id);
+        } catch (Exception e) {
             System.out.println("Exception while finding entity" + e.getMessage());
         }
         return null;
@@ -52,12 +52,21 @@ public class FacultyServiceImpl implements FacultyService<Faculty> {
 
     @Override
     public List<Faculty> findAll() {
-        try{
+        try {
             facultyRepository.findAll();
-        }catch(Exception e){
-            System.out.println("Exception while finding entities" + e.getMessage());
+        } catch (NullPointerException e) {
+            System.out.println("Cannot find faculty" + e.getMessage());
         }
         return null;
     }
 
+    @Override
+    public Faculty findByLastName(String lastName) {
+        try {
+            facultyRepository.findByLastName(lastName);
+        } catch (NullPointerException e) {
+            System.out.println("Cannot find faculty " + e.getMessage());
+        }
+        return null;
+    }
 }

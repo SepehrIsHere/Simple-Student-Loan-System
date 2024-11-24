@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,7 @@ public class Person extends BaseEntity implements Serializable {
     @Column(name = NATIONAL_CODE)
     @Min(value = 5, message = "cannot be less than 5")
     @Max(value = 8, message = "cannot be bigger than 8")
+    //@Pattern()
     private Integer nationalCode;
 
     @Min(value = 5, message = "cannot be less than 5")

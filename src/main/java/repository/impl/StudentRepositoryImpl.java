@@ -8,6 +8,7 @@ import jakarta.persistence.TypedQuery;
 import org.apache.commons.lang3.reflect.Typed;
 import repository.StudentRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentRepositoryImpl extends BaseEntityRepositoryImpl<Student> implements StudentRepository {
@@ -46,8 +47,9 @@ public class StudentRepositoryImpl extends BaseEntityRepositoryImpl<Student> imp
 
     @Override
     public List<Course> findStudentCourses(Long studentId) {
-        TypedQuery<Course> query = em.createQuery(" SELECT c FROM Course c JOIN c.students s WHERE s.id = :studentId",Course.class);
-        query.setParameter("studentId", studentId);
-        return query.getResultList();
+        List<Course> courses = em.createQuery("SELECT c FROM Course c JOIN c.students s WHERE s.id = :studentId", Course.class)
+                .setParameter("studentId", studentId)
+                .getResultList();
+        return courses != null ? courses : new ArrayList<>();
     }
 }

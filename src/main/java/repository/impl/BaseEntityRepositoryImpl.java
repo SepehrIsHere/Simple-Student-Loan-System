@@ -5,7 +5,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import repository.BaseEntityRepository;
 
-import java.util.List;
 
 public class BaseEntityRepositoryImpl<T extends BaseEntity> implements BaseEntityRepository<T> {
     private final EntityManager em;

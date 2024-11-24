@@ -24,6 +24,7 @@ public class Student extends Person {
     @ColumnDefault("0")
     private Double gpa;
 
+    //------------
     @Column(name = ALLOWED_UNIT_COUNT)
     @ColumnDefault("20")
     private Integer allowedUnitCount;

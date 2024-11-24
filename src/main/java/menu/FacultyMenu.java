@@ -9,6 +9,7 @@ import service.FacultyService;
 import service.SelectUnitService;
 import service.StudentService;
 
+import java.text.DecimalFormat;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -95,7 +96,7 @@ public class FacultyMenu {
 
             System.out.println("Enter course id: ");
             Long courseId = input.nextLong();
-            input.nextLine(); // Consume newline
+            input.nextLine();
             Course course = courseService.findById(courseId);
 
             if (course == null) {
@@ -104,9 +105,9 @@ public class FacultyMenu {
             }
 
             if (doesFacultyTeachTheCourse(courseId, facultyId)) {
-                System.out.println("Enter student's last name: ");
-                String lastName = input.nextLine();
-                Student student = studentService.findByLastName(lastName);
+                System.out.println("Enter student's id: ");
+                Long studentId = input.nextLong();
+                Student student = studentService.findById(studentId);
 
                 if (student == null) {
                     System.out.println("Student not found.");
@@ -148,11 +149,13 @@ public class FacultyMenu {
                 return;
             }
 
+            DecimalFormat df = new DecimalFormat("#,###.00");
+
             System.out.println("Firstname: " + faculty.getFirstName());
             System.out.println("Lastname: " + faculty.getLastName());
             System.out.println("National code: " + faculty.getNationalCode());
             System.out.println("Phone number: " + faculty.getPhoneNumber());
-            System.out.println("Monthly Salary: " + calculateMonthlySalary(faculty));
+            System.out.println("Monthly Salary: " + df.format(calculateMonthlySalary(faculty)));
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please enter a valid faculty id.");
             input.nextLine();

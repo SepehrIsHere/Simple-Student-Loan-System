@@ -9,4 +9,6 @@ public interface FacultyRepository extends BaseEntityRepository<Faculty> {
     Faculty findById(Long id);
 
     List<Faculty> findAll();
+
+    Faculty findByLastName(String lastName);
 }

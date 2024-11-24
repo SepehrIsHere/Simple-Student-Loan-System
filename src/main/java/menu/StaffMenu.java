@@ -8,7 +8,6 @@ import enumeration.FacultyType;
 import service.FacultyService;
 import service.StaffService;
 import service.StudentService;
-
 import java.util.Scanner;
 
 public class StaffMenu {

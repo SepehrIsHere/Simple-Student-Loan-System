@@ -15,4 +15,5 @@ public interface FacultyService <Faculty> {
 
     List<Faculty> findAll();
 
+    Faculty findByLastName(String lastName);
 }

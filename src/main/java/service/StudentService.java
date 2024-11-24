@@ -26,4 +26,5 @@ public interface StudentService<T extends Student> {
     List<SelectUnit> getSelectedUnits(Student student);
 
     List<Course> findStudentCourses(Long studentId);
+
 }
